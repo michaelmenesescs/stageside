@@ -1,0 +1,11 @@
+{
+  "name": "stageside",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "typecheck": "pnpm --filter web typecheck",
+    "lint": "pnpm --filter web lint"
+  }
+}

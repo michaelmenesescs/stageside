@@ -1,0 +1,185 @@
+{
+  "venues": [
+    {
+      "name": "Bossa Nova Civic Club",
+      "neighborhood": "Bushwick",
+      "capacity_estimate": 140,
+      "website": "https://www.bossanovacivicclub.com",
+      "ra_url": "https://ra.co/clubs/bossanovacivicclub",
+      "ig_handle": "bossanovacivicclub"
+    },
+    {
+      "name": "H0L0",
+      "neighborhood": "Bushwick",
+      "capacity_estimate": 150,
+      "ig_handle": "h0l0.nyc"
+    },
+    {
+      "name": "Jupiter Disco",
+      "neighborhood": "Bushwick",
+      "capacity_estimate": 100,
+      "ig_handle": "jupiterdisco"
+    },
+    {
+      "name": "Mansions",
+      "neighborhood": "Bushwick",
+      "capacity_estimate": 100,
+      "ig_handle": "mansionsnyc"
+    },
+    {
+      "name": "Gabriela",
+      "neighborhood": "Brooklyn",
+      "capacity_estimate": 80,
+      "ig_handle": "gabrielabrooklyn"
+    },
+    {
+      "name": "Good Room",
+      "neighborhood": "Greenpoint",
+      "capacity_estimate": 80,
+      "website": "https://www.goodroombk.com",
+      "ra_url": "https://ra.co/clubs/goodroom",
+      "ig_handle": "goodroombk"
+    },
+    {
+      "name": "Elsewhere",
+      "neighborhood": "Bushwick",
+      "capacity_estimate": 200,
+      "website": "https://www.elsewherebrooklyn.com",
+      "ra_url": "https://ra.co/clubs/elsewhere",
+      "ig_handle": "elsewhere_bk"
+    },
+    {
+      "name": "Paragon",
+      "neighborhood": "Brooklyn",
+      "capacity_estimate": 250,
+      "ig_handle": "paragonbk"
+    },
+    {
+      "name": "Signal",
+      "neighborhood": "Brooklyn",
+      "capacity_estimate": 210,
+      "ig_handle": "signalnyc"
+    },
+    {
+      "name": "Public Records",
+      "neighborhood": "Gowanus",
+      "capacity_estimate": 350,
+      "website": "https://www.publicrecords.nyc",
+      "ra_url": "https://ra.co/clubs/publicrecords",
+      "ig_handle": "publicrecordsnyc"
+    },
+    {
+      "name": "Nowadays",
+      "neighborhood": "Ridgewood",
+      "website": "https://nowadays.nyc",
+      "ra_url": "https://ra.co/clubs/nowadays",
+      "ig_handle": "nowadaysnyc"
+    },
+    {
+      "name": "Trans-Pecos",
+      "neighborhood": "Ridgewood",
+      "ig_handle": "trans_pecos"
+    },
+    {
+      "name": "TBA Brooklyn",
+      "neighborhood": "Bushwick",
+      "ig_handle": "tbabrooklyn"
+    },
+    {
+      "name": "Basement",
+      "neighborhood": "Manhattan",
+      "ig_handle": "basementnyc"
+    }
+  ],
+  "promoters": [
+    {
+      "name": "John Barclay",
+      "notes": "Booker at Bossa Nova Civic Club. Weeknight slots available. Attend regularly first.",
+      "sound_tags": ["techno", "house", "experimental"],
+      "fit_score": 85
+    },
+    {
+      "name": "ReSolute",
+      "ig_handle": "resolute_nyc",
+      "notes": "Crew that runs H0L0. Network through community. Underground techno focus.",
+      "sound_tags": ["techno", "underground"],
+      "fit_score": 80
+    },
+    {
+      "name": "Eli Escobar",
+      "ig_handle": "eliescobar",
+      "notes": "Resident at Gabriela. Community presence required first.",
+      "sound_tags": ["house", "disco"],
+      "fit_score": 70
+    },
+    {
+      "name": "Jerome",
+      "ig_handle": "jeromenyc",
+      "notes": "NYC party collective.",
+      "sound_tags": ["house", "techno"],
+      "fit_score": 72
+    },
+    {
+      "name": "Unter",
+      "ig_handle": "unter_nyc",
+      "notes": "Underground techno collective NYC.",
+      "sound_tags": ["techno", "industrial"],
+      "fit_score": 78
+    },
+    {
+      "name": "Disco Tehran",
+      "ig_handle": "discotehran",
+      "notes": "NYC party collective. Middle Eastern music influences + dance music.",
+      "sound_tags": ["house", "experimental", "global"],
+      "fit_score": 65
+    },
+    {
+      "name": "Kindergarten",
+      "ig_handle": "kindergartennyc",
+      "notes": "Brooklyn party collective.",
+      "sound_tags": ["techno", "house"],
+      "fit_score": 68
+    },
+    {
+      "name": "Paragon",
+      "ig_handle": "paragonbk",
+      "notes": "Paragon venue + collective. Email demo + DM path.",
+      "sound_tags": ["techno", "house", "experimental"],
+      "fit_score": 75
+    },
+    {
+      "name": "Mhost Likely",
+      "ig_handle": "mhostlikely",
+      "notes": "NYC collective.",
+      "sound_tags": ["house", "techno"],
+      "fit_score": 65
+    },
+    {
+      "name": "Bound",
+      "ig_handle": "boundnyc",
+      "notes": "NYC party series.",
+      "sound_tags": ["techno", "industrial", "dark"],
+      "fit_score": 70
+    },
+    {
+      "name": "Technofeminism",
+      "ig_handle": "technofeminism",
+      "notes": "NYC collective. Community-focused.",
+      "sound_tags": ["techno", "experimental"],
+      "fit_score": 60
+    },
+    {
+      "name": "Wrecked",
+      "ig_handle": "wreckednyc",
+      "notes": "NYC party series.",
+      "sound_tags": ["techno", "hard techno"],
+      "fit_score": 62
+    },
+    {
+      "name": "Nick Spector",
+      "notes": "Booker at Signal. Build relationship first before pitching.",
+      "sound_tags": ["techno", "house"],
+      "fit_score": 88
+    }
+  ]
+}

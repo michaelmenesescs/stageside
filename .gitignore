@@ -1,0 +1,31 @@
+# deps
+node_modules/
+.pnpm-store/
+
+# Next.js
+apps/web/.next/
+apps/web/out/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+
+# turbo
+.turbo/
+
+# logs
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+services/scraper/.env
+
+# Netlify
+.netlify/
