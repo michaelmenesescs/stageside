@@ -1,0 +1,29 @@
+name: RA Scraper
+
+on:
+  schedule:
+    # Daily at 6am UTC
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    # Allow manual trigger from GitHub Actions tab
+
+jobs:
+  ra-events:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: services/scraper/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r services/scraper/requirements.txt
+
+      - name: Run RA NYC events scraper
+        run: python services/scraper/ra_events.py
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}

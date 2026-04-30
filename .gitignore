@@ -29,3 +29,6 @@ services/scraper/.env
 
 # Netlify
 .netlify/
+
+# Deno
+deno.lock

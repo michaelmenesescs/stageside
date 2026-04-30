@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 interface Promoter {
@@ -55,10 +56,15 @@ export default async function PromotersPage() {
             {promoters.map((p) => (
               <tr
                 key={p.id}
-                className="border-b border-border/50 hover:bg-card transition-colors"
+                className="border-b border-border/50 hover:bg-card transition-colors group"
               >
                 <td className="py-3 pr-6">
-                  <span className="text-foreground">{p.name}</span>
+                  <Link
+                    href={`/promoters/${p.id}`}
+                    className="text-foreground group-hover:text-muted-foreground transition-colors"
+                  >
+                    {p.name}
+                  </Link>
                   {p.notes && (
                     <p className="text-xs text-muted-foreground mt-0.5 max-w-xs truncate">
                       {p.notes}
