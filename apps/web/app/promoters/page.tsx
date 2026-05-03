@@ -1,120 +1,94 @@
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { PromotersList } from "./promoters-list";
+
+export const revalidate = 0;
 
 interface Promoter {
   id: string;
   name: string;
   ig_handle: string | null;
-  sound_tags: string[] | null;
+  ra_url: string | null;
   fit_score: number | null;
   last_active: string | null;
   notes: string | null;
+  sound_tags: string[] | null;
+}
+
+interface PitchRow {
+  promoter_id: string;
+  status: string | null;
+  sent_at: string | null;
+}
+
+interface EventRow {
+  promoter_id: string | null;
+  date: string;
 }
 
 export default async function PromotersPage() {
   const supabase = await createClient();
 
-  const { data: promoters, error } = await supabase
-    .from("promoters")
-    .select("id, name, ig_handle, sound_tags, fit_score, last_active, notes")
-    .order("fit_score", { ascending: false })
-    .returns<Promoter[]>();
+  const [promotersRes, pitchesRes, eventsRes] = await Promise.all([
+    supabase
+      .from("promoters")
+      .select("id, name, ig_handle, ra_url, fit_score, last_active, notes, sound_tags")
+      .order("fit_score", { ascending: false, nullsFirst: false })
+      .returns<Promoter[]>(),
 
-  if (error) {
-    return (
-      <div>
-        <p className="text-xs text-red-500">Failed to load promoters.</p>
-      </div>
-    );
+    supabase
+      .from("pitches")
+      .select("promoter_id, status, sent_at")
+      .returns<PitchRow[]>(),
+
+    supabase
+      .from("events")
+      .select("promoter_id, date")
+      .not("promoter_id", "is", null)
+      .order("date", { ascending: false })
+      .returns<EventRow[]>(),
+  ]);
+
+  const promoters = promotersRes.data ?? [];
+  const pitches = pitchesRes.data ?? [];
+  const events = eventsRes.data ?? [];
+
+  // Per-promoter pitch status (best active status wins)
+  const STATUS_RANK: Record<string, number> = {
+    booked: 6,
+    replied: 5,
+    opened: 4,
+    sent: 3,
+    declined: 2,
+    ghosted: 1,
+    draft: 0,
+  };
+
+  const pitchStatus: Record<string, string> = {};
+  for (const p of pitches) {
+    if (!p.promoter_id || !p.status) continue;
+    const current = pitchStatus[p.promoter_id];
+    if (!current || (STATUS_RANK[p.status] ?? -1) > (STATUS_RANK[current] ?? -1)) {
+      pitchStatus[p.promoter_id] = p.status;
+    }
   }
 
-  return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-sm tracking-widest uppercase">Promoters</h1>
-        <span className="text-xs text-muted-foreground">
-          {promoters?.length ?? 0} total
-        </span>
-      </div>
+  // Per-promoter event count + last event date
+  const eventCount: Record<string, number> = {};
+  const lastEventDate: Record<string, string> = {};
+  for (const e of events) {
+    if (!e.promoter_id) continue;
+    eventCount[e.promoter_id] = (eventCount[e.promoter_id] ?? 0) + 1;
+    if (!lastEventDate[e.promoter_id] || e.date > lastEventDate[e.promoter_id]) {
+      lastEventDate[e.promoter_id] = e.date;
+    }
+  }
 
-      {!promoters || promoters.length === 0 ? (
-        <p className="text-sm text-muted-foreground">
-          No promoters yet. Run the seed script to populate.
-        </p>
-      ) : (
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-border text-xs tracking-wider uppercase text-muted-foreground">
-              <th className="text-left pb-3 pr-6 font-normal">Name</th>
-              <th className="text-left pb-3 pr-6 font-normal">Instagram</th>
-              <th className="text-left pb-3 pr-6 font-normal">Sound</th>
-              <th className="text-left pb-3 pr-6 font-normal">Fit</th>
-              <th className="text-left pb-3 font-normal">Last Active</th>
-            </tr>
-          </thead>
-          <tbody>
-            {promoters.map((p) => (
-              <tr
-                key={p.id}
-                className="border-b border-border/50 hover:bg-card transition-colors group"
-              >
-                <td className="py-3 pr-6">
-                  <Link
-                    href={`/promoters/${p.id}`}
-                    className="text-foreground group-hover:text-muted-foreground transition-colors"
-                  >
-                    {p.name}
-                  </Link>
-                  {p.notes && (
-                    <p className="text-xs text-muted-foreground mt-0.5 max-w-xs truncate">
-                      {p.notes}
-                    </p>
-                  )}
-                </td>
-                <td className="py-3 pr-6 text-muted-foreground">
-                  {p.ig_handle ? `@${p.ig_handle}` : "—"}
-                </td>
-                <td className="py-3 pr-6">
-                  {p.sound_tags && p.sound_tags.length > 0 ? (
-                    <div className="flex flex-wrap gap-1">
-                      {p.sound_tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs bg-secondary text-secondary-foreground px-1.5 py-0.5 rounded"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  ) : (
-                    <span className="text-muted-foreground">—</span>
-                  )}
-                </td>
-                <td className="py-3 pr-6">
-                  {p.fit_score != null ? (
-                    <span
-                      className={
-                        p.fit_score >= 80
-                          ? "text-foreground"
-                          : p.fit_score >= 65
-                            ? "text-muted-foreground"
-                            : "text-muted-foreground/60"
-                      }
-                    >
-                      {p.fit_score}
-                    </span>
-                  ) : (
-                    <span className="text-muted-foreground">—</span>
-                  )}
-                </td>
-                <td className="py-3 text-muted-foreground">
-                  {p.last_active ?? "—"}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
-  );
+  const enriched = promoters.map((p) => ({
+    ...p,
+    pitch_status: pitchStatus[p.id] ?? null,
+    event_count: eventCount[p.id] ?? 0,
+    last_event: lastEventDate[p.id] ?? null,
+  }));
+
+  return <PromotersList promoters={enriched} />;
 }
